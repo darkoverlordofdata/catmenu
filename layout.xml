@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<dock-layout>
+  <layout name="__default__">
+    <dock name="__dock_1" floating="no" width="-1" height="-1" floatx="0" floaty="0" skip-taskbar="yes">
+      <paned orientation="vertical" resize="yes" locked="no" iconified="no" closed="no" position="190">
+        <paned orientation="vertical" resize="yes" locked="no" iconified="no" closed="no" position="86">
+          <item name="item3" orientation="vertical" resize="yes" locked="no" iconified="no" closed="no"/>
+          <item name="item1" orientation="vertical" resize="yes" locked="yes" iconified="no" closed="no"/>
+        </paned>
+        <notebook orientation="vertical" resize="yes" locked="no" iconified="no" closed="no" page="2">
+          <item name="Item #4" orientation="vertical" resize="yes" locked="no" iconified="no" closed="no"/>
+          <item name="Item #5" orientation="vertical" resize="yes" locked="no" iconified="no" closed="no"/>
+          <item name="Item #6" orientation="vertical" resize="yes" locked="no" iconified="no" closed="no"/>
+        </notebook>
+      </paned>
+    </dock>
+    <dock floating="yes" width="172" height="144" floatx="501" floaty="241" skip-taskbar="yes">
+      <item name="item2" orientation="vertical" resize="no" locked="no" iconified="no" closed="no"/>
+    </dock>
+  </layout>
+</dock-layout>

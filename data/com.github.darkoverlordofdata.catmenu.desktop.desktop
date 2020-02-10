@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Cat Menu
+Comment=Menu
+Exec=com.github.darkoverlordofdata.catmenu
+Icon=/usr/share/icons/com.github.darkoverlordofdata.catmenu.svg
+Terminal=false
+Categories=Utility;
+StartupNotify=false
+Name[en_US]=com.github.darkoverlordofdata.catmenu.desktop
