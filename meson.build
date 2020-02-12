@@ -35,7 +35,6 @@ subdir('po')
 # Create a new executable
 executable(
     meson.project_name(),
-    # 'src/Alpha.vala',
     'src/CatMenu.vala',
     'src/MenuServer.vala',
     'src/MenuClient.vala',

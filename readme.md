@@ -17,6 +17,11 @@
 
     POC - at this point it works; I need to tweak the ux.
 
+### why?
+
+    I'm using openbox on bsd (NomadBSD). For the most part, I like openbox, but not the obmenu.
+    It pops up wherever your mouse is, and that anoys me - muscle memory keeps moving my hand to a specific location on the screen. It makes it hard to click on menu items - same problem ans ribbon menus. I prefer an old fashioned fixed location menu.
+
 ### build
 
     meson build --prefix=/usr
@@ -27,7 +32,7 @@
 
     openbox conpatible
     
-    catmenu reads the menu data from ~/.config/openbox/menu.xml
+    catmenu uses the obmenu data from ~/.config/openbox/menu.xml,so you can still use your favorite open box menu generator.
 
     Usage:
     com.github.darkoverlordofdata.catmenu [OPTION?]
