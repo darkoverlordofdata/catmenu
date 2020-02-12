@@ -22,6 +22,8 @@
 
 ### menu presentation server
 
+    openbox conpatible
+    
     catmenu reads the menu data from ~/.config/openbox/menu.xml
 
     Usage:
@@ -51,3 +53,20 @@
     after adding or removing software:
 
         com.github.darkoverlordofdata.catmenu --reload
+
+### don't menu show in taskbar
+add to ~/.config/openbox/rc.xml
+``` xml
+<application name="com.github.darkoverlordofdata.catmenu">
+<decor>false</decor>
+<shade>no</shade>
+<focus>yes</focus>
+<desktop>all</desktop>
+<layer>above</layer>
+<iconic>no</iconic>
+<skip_pager>no</skip_pager>
+<skip_taskbar>yes</skip_taskbar>
+<fullscreen>no</fullscreen>
+<maximized>false</maximized>
+</application>
+```

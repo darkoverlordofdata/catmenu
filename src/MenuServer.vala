@@ -27,25 +27,21 @@ interface Menu : Object {
 public class MenuServer : Object {
 
    	public int load(string msg) throws GLib.Error {
-	   	stdout.printf ("load %s\n", msg);
-		return CatMenu.MenuWindow.instance.load(msg);
+		return CatMenu.MenuWindow.instance.menu_load(msg);
    }
 
 	public int show() throws GLib.Error{
-		stdout.printf ("show\n");
-		CatMenu.MenuWindow.instance.show();
+		CatMenu.MenuWindow.instance.menu_show();
 		return 0;
 	}
 
 	public int hide() throws GLib.Error{
-		stdout.printf ("hide\n");
-		CatMenu.MenuWindow.instance.hide();
+		CatMenu.MenuWindow.instance.menu_hide();
 		return 0;
 	}
 
 	public int quit() throws GLib.Error{
-		stdout.printf ("bye!\n");
-		CatMenu.MenuWindow.instance.quit();
+		CatMenu.MenuWindow.instance.menu_quit();
 		return 0;
 	}
 }
