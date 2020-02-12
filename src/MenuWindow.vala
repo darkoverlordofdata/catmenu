@@ -272,6 +272,10 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		else {
 			is_shown = true;
 			show();
+			if (MenuClient.screen_capture) {
+				MenuClient.screen_capture = false;
+				Process.spawn_command_line_async ("/usr/local/bin/scrot -d 1");
+			}
 		}
 	}
 

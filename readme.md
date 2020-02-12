@@ -13,6 +13,9 @@
 
     I just wanted it to sort next to catlock in my project folder.
 
+### status
+
+    POC - at this point it works; I need to tweak the ux.
 
 ### build
 
@@ -54,7 +57,7 @@
 
         com.github.darkoverlordofdata.catmenu --reload
 
-### don't menu show in taskbar
+### don't show in taskbar
 add to ~/.config/openbox/rc.xml
 ``` xml
 <application name="com.github.darkoverlordofdata.catmenu">
@@ -70,3 +73,6 @@ add to ~/.config/openbox/rc.xml
 <maximized>false</maximized>
 </application>
 ```
+
+
+![Screenshot](https://github.com/darkoverlordofdata/catmenu/raw/master/assets/0.png "Screenshot")

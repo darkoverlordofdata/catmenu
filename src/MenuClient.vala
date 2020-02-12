@@ -44,6 +44,7 @@ public class CatMenu.MenuClient : GLib.Object
 		{ "hide", 0, 0, OptionArg.NONE, ref menu_hide, "Hide the menu", null },
 		{ "show", 0, 0, OptionArg.NONE, ref menu_show, "Show the menu", null },
 		{ "reload", 0, 0, OptionArg.NONE, ref menu_reload, "Reload xml", null },
+		{ "scrot", 0, 0, OptionArg.NONE, ref screen_capture, "Screen capture", null },
 		{ null }
     };
 
@@ -52,6 +53,7 @@ public class CatMenu.MenuClient : GLib.Object
     public static bool menu_hide;
     public static bool menu_show;
     public static bool menu_reload;
+    public static bool screen_capture;
     private Menu server = null;
     private int res = -1;
 
