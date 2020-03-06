@@ -36,8 +36,9 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 	private Source state = Source.CATEGORY;
 	private string category_id = "";
 	private string searchFor = "";
-	private GenericArray<RowData> app_data;
-	private GenericArray<RowData> fav_data;
+	private GenericArray<RowData> applications_data;
+	private GenericArray<RowData> favorites_data;
+	private GenericArray<RowData> places_data;
 	
     private Gtk.Button show_menu;
     private Gtk.Button hide_menu;
@@ -46,11 +47,14 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 
 	private Gtk.ListBox applications_list;
 	private Gtk.ListBox favorites_list;
+	private Gtk.ListBox computer_list;
+	private Gtk.ListBox preferences_list;
 	
     private bool supports_alpha;
     private static string css_data = """
     * { 
-        background: rgba(0, 0, 0, 0.0); 
+		background: rgba(0, 0, 0, 0.0); 
+		border-width: 0;
     }
 	""";
 
@@ -75,6 +79,8 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 
 		applications_list = new Gtk.ListBox();
 		favorites_list = new Gtk.ListBox();
+		computer_list = new Gtk.ListBox();
+		preferences_list = new Gtk.ListBox();
 
 		var go_hide = new SimpleAction ("go-hide", null);
 		/*
@@ -106,15 +112,17 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		//emblem-favorite
 		//application-x-executable
 
-		var app_data = new GenericArray<RowData>();
-		var fav_data = new GenericArray<RowData>();
+		var applications_data = new GenericArray<RowData>();
+		var favorites_data = new GenericArray<RowData>();
+		var places_data = new GenericArray<RowData>();
+		var preferences_data = new GenericArray<RowData>();
 
 		var header = new Gtk.Box(Gtk.Orientation.HORIZONTAL, 0);
 
 		//  var iconfile = @"/var/lib/AccountsService/icons/$username";
 		var user_name = GLib.Environment.get_user_name();
 		var iconfile = @"/home/$user_name/.face";
-		var avatar = new Granite.Widgets.Avatar.from_file (iconfile, 24);
+		var avatar = new Granite.Widgets.Avatar.from_file (iconfile, 48);
 		avatar.set_tooltip_text(user_name);
 
 		var search = new Gtk.SearchEntry();
@@ -133,21 +141,42 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		box.pack_start(header, false, false, 0);
 		box.pack_start(notebook, false, false, 0);
 
-		//  var applications_list = new Gtk.ListBox();
+		/* Applications Tab */
 		var applications = new Gtk.ScrolledWindow(null, null);
 		applications.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
 		applications.add(applications_list);
-		//  notebook.append_page(applications, new Gtk.Label("Applications"));
-		notebook.append_page(applications, new Gtk.Image.from_icon_name("application-x-executable", Gtk.IconSize.DND));
+		var applications_icon = new Gtk.Image.from_icon_name("start-here", Gtk.IconSize.DND);
+		applications_icon.set_tooltip_text("Applications");
+		notebook.append_page(applications, applications_icon);
 		applications_list.set_activate_on_single_click(true);
 
-		//  var favorites_list = new Gtk.ListBox();
+		/* Favorites Tab */
 		var favorites = new Gtk.ScrolledWindow(null, null);
 		favorites.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
 		favorites.add(favorites_list);
-		//  notebook.append_page(favorites, new Gtk.Label("Favorites"));
-		notebook.append_page(favorites, new Gtk.Image.from_icon_name("emblem-favorite", Gtk.IconSize.DND));
+		var favorites_icon = new Gtk.Image.from_icon_name("emblem-favorite", Gtk.IconSize.DND);
+		favorites_icon.set_tooltip_text("Favorites");
+		notebook.append_page(favorites, favorites_icon);
 		favorites_list.set_activate_on_single_click(true);
+
+		/* Computer (Places) Tab */
+		var computer = new Gtk.ScrolledWindow(null, null);
+		computer.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+		computer.add(computer_list);
+		var computer_icon = new Gtk.Image.from_icon_name("computer", Gtk.IconSize.DND);
+		computer_icon.set_tooltip_text("Places");
+		notebook.append_page(computer, computer_icon);
+		computer_list.set_activate_on_single_click(true);
+
+		/* Openbox Tab (preferences-desktop?) */
+		var preferences = new Gtk.ScrolledWindow(null, null);
+		preferences.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC);
+		preferences.add(preferences_list);
+		var preferences_icon = new Gtk.Image.from_icon_name("preferences", Gtk.IconSize.DND);
+		preferences_icon.set_tooltip_text("Openbox");
+		notebook.append_page(preferences, preferences_icon);
+		preferences_list.set_activate_on_single_click(true);
+
 
 		/**
 		 * Add categories to the menu:
@@ -156,18 +185,43 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		 * what to show in the presentation.
 		*/
 		obmenu.categories.foreach((category) => { 
-			applications_list.insert(new MenuCategory(app_data, category), -1);
+			applications_list.insert(new MenuCategory(applications_data, category), -1);
 			category.items.foreach((item) => {
-				applications_list.insert(new MenuItem(app_data, item, category.id), -1);
+				applications_list.insert(new MenuItem(applications_data, item, category.id), -1);
 			});
 		});
+
+		/**
+		 * Applications Row onclick
+		 */
+		applications_list.row_activated.connect((row) => {
+			var i = row.get_index();
+
+			if (applications_data[i].source == Source.CATEGORY) {
+				in_submenu = true;
+				state = Source.ITEM;
+				category_id = applications_data[i].id;
+				applications_list.invalidate_filter();
+			} 
+			else {
+				in_submenu = false;
+				try {
+					Process.spawn_command_line_async (applications_data[i].cmd);
+				} catch (GLib.Error e) {
+					print(@"Error: $(e.message)\n");
+					critical (e.message);
+				}
+				menu_hide();
+			}
+		}); 
+
 
 		/**
 		 * Add to favorites menu
 		 * favorites are the top level apps on the obmenu
 		 */
 		obmenu.favorites.foreach((item) => {
-			favorites_list.insert(new MenuItem(fav_data, item), -1);
+			favorites_list.insert(new MenuItem(favorites_data, item), -1);
 		});
 		 
 		/**
@@ -176,7 +230,7 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		 favorites_list.row_activated.connect((row) => {
 			var i = row.get_index();
 			try {
-				Process.spawn_command_line_async (fav_data[i].cmd);
+				Process.spawn_command_line_async (favorites_data[i].cmd);
 			} catch (GLib.Error e) {
 				print(@"Error: $(e.message)\n");
 				critical (e.message);
@@ -185,29 +239,42 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 
 		});
 
-		/**
-		 * Applications Row onclick
-		 */
-		 applications_list.row_activated.connect((row) => {
+		computer_list.row_activated.connect((row) => {
 			var i = row.get_index();
-
-			if (app_data[i].source == Source.CATEGORY) {
-				in_submenu = true;
-				state = Source.ITEM;
-				category_id = app_data[i].id;
-				applications_list.invalidate_filter();
-			} 
-			else {
-				in_submenu = false;
-				try {
-					Process.spawn_command_line_async (app_data[i].cmd);
-				} catch (GLib.Error e) {
-					print(@"Error: $(e.message)\n");
-					critical (e.message);
-				}
-				menu_hide();
+			try {
+				Process.spawn_command_line_async (places_data[i].cmd);
+			} catch (GLib.Error e) {
+				print(@"Error: $(e.message)\n");
+				critical (e.message);
 			}
-		}); 
+			menu_hide();
+
+		});
+		/**
+		 * Computer (Places) menu
+		 */
+		computer_list.insert(new PlaceItem(places_data, "Home", @"/home/$user_name/"), -1);
+		computer_list.insert(new PlaceItem(places_data, "Trash", "trash://"), -1);
+		computer_list.insert(new PlaceItem(places_data, "Desktop", @"/home/$user_name/Desktop"), -1);
+		computer_list.insert(new PlaceItem(places_data, "File System", "/"), -1);
+		var bookmarks = File.new_for_path(@"/home/$user_name/.config/gtk-3.0/bookmarks");
+		if (bookmarks.query_exists()) {
+			try {
+				var places = new DataInputStream (bookmarks.read ());
+				string line;
+				while ((line = places.read_line (null)) != null) {
+					var place = line.split(" ");
+					computer_list.insert(new PlaceItem(places_data, place[1], place[0]), -1);
+				}				
+			}
+			catch (GLib.Error e) { }
+		}
+
+		/**
+		 * Openbox preferences 
+		 */
+		//   preferences_list.insert(new PrefItem(preferences_data, "Reconfig", "openbox --reconfigure"));
+		//   preferences_list.insert(new PrefItem(preferences_data, "Refresh", "obmenu-generator -d"));
 
 		/**
 		 * Search onchange
@@ -236,18 +303,18 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 
 			if (searchFor == "") {
 				if (state == Source.CATEGORY) {
-					if (app_data[i].source == Source.CATEGORY) return true;
+					if (applications_data[i].source == Source.CATEGORY) return true;
 					else return false;
 				}
 				else {
-					if (app_data[i].source 	== Source.ITEM 
-					 && app_data[i].id 		== category_id) return true;
+					if (applications_data[i].source 	== Source.ITEM 
+					 && applications_data[i].id 		== category_id) return true;
 					else return false;
 				}
 			}
 
 
-			if (app_data[i].text.down().index_of(searchFor.down()) >= 0) 
+			if (applications_data[i].text.down().index_of(searchFor.down()) >= 0) 
 				return true;
 			else
 				return false;

@@ -117,7 +117,11 @@ public class CatMenu.MenuData : Object
 	 private void loadSubMenu(Xml.Node* sub_menu) {
 
         var category = new CategoryData.from_xml(sub_menu);
+        /* for now, ignore openbox settings  */
+        if (category.label == "Places") return;
+        if (category.label == "Advanced Settings") return;
         _categories.add(category);
+
         
 		print("submenu %s\n", category.label);
 		for (var node = sub_menu->children; node != null; node = node->next) {

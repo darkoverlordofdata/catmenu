@@ -20,7 +20,7 @@
 ### why?
 
     I'm using openbox on bsd (NomadBSD). For the most part, I like openbox, but not the obmenu.
-    It pops up wherever your mouse is, and that anoys me - muscle memory keeps moving my hand to a specific location on the screen. It makes it hard to click on menu items - same problem ans ribbon menus. I prefer an old fashioned fixed location menu.
+    It pops up wherever your mouse is, and that anoys me - muscle memory keeps moving my hand to a specific location on the screen. It makes it hard to click on menu items - same problem as ribbon menus. I prefer an old fashioned fixed location menu.
 
 ### build
 

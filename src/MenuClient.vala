@@ -83,6 +83,7 @@ public class CatMenu.MenuClient : GLib.Object
 
     public static int main(string[] args)
     {
+
         MenuClient client = null;
         /** get flags & options */
 		try {

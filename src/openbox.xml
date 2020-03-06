@@ -1,0 +1,22 @@
+  <menu id="0.163611346380527" icon="/home/darko/.config/obmenu-generator/icons/8f418221ee4d23003828bb6e43dc8e3a.png" label="Advanced Settings">
+    <item label="Conky RC" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.conkyrc]]></command></action></item>
+    <item label="Tint2 Panel" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/tint2/tint2rc]]></command></action></item>
+  <menu id="0.71600216187743" icon="/home/darko/.config/obmenu-generator/icons/fa28bbccdb8ea53178a89feae5022254.png" label="Obmenu-Generator">
+    <item label="Menu Schema" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/obmenu-generator/schema.pl]]></command></action></item>
+    <item label="Menu Config" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/obmenu-generator/config.pl]]></command></action></item>
+  <separator/>
+    <item label="Generate a static menu" icon="/home/darko/.config/obmenu-generator/icons/fa28bbccdb8ea53178a89feae5022254.png"><action name="Execute"><command><![CDATA[obmenu-generator -s -c]]></command></action></item>
+    <item label="Generate a static menu with icons" icon="/home/darko/.config/obmenu-generator/icons/fa28bbccdb8ea53178a89feae5022254.png"><action name="Execute"><command><![CDATA[obmenu-generator -s -i -c]]></command></action></item>
+  <separator/>
+    <item label="Generate a dynamic menu" icon="/home/darko/.config/obmenu-generator/icons/fa28bbccdb8ea53178a89feae5022254.png"><action name="Execute"><command><![CDATA[obmenu-generator -p]]></command></action></item>
+    <item label="Generate a dynamic menu with icons" icon="/home/darko/.config/obmenu-generator/icons/fa28bbccdb8ea53178a89feae5022254.png"><action name="Execute"><command><![CDATA[obmenu-generator -p -i]]></command></action></item>
+  <separator/>
+    <item label="Refresh cache" icon="/home/darko/.config/obmenu-generator/icons/bea463f6928b30d6539f9bf6955346e6.png"><action name="Execute"><command><![CDATA[obmenu-generator -d]]></command></action></item>
+  </menu>
+  <menu id="0.103681673843099" icon="/home/darko/.config/obmenu-generator/icons/18d0310fcf7c8bb965edf7c46583c560.png" label="Openbox">
+    <item label="Openbox Autostart" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/openbox/autostart]]></command></action></item>
+    <item label="Openbox RC" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/openbox/rc.xml]]></command></action></item>
+    <item label="Openbox Menu" icon="/home/darko/.config/obmenu-generator/icons/a03ff664a373a1a68651467cd9fd0c39.png"><action name="Execute"><command><![CDATA[geany ~/.config/openbox/menu.xml]]></command></action></item>
+    <item label="Reconfigure Openbox" icon="/home/darko/.config/obmenu-generator/icons/18d0310fcf7c8bb965edf7c46583c560.png"><action name="Execute"><command><![CDATA[openbox --reconfigure]]></command></action></item>
+  </menu>
+  </menu>

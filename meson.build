@@ -46,6 +46,7 @@ executable(
     'src/Data/RowData.vala',
     'src/View/MenuCategory.vala',
     'src/View/MenuItem.vala',
+    'src/View/PlaceItem.vala',
 
     import('gnome').compile_resources(
         'as-resources', join_paths('data', meson.project_name() + '.gresource.xml'),
