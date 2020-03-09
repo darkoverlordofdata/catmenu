@@ -4,11 +4,6 @@ install_data(
     install_dir: join_paths(get_option('datadir'), 'icons')
 )
 
-install_data(
-    join_paths(meson.project_name() + '.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons')
-)
-
 
 i18n = import('i18n')
 
