@@ -124,6 +124,13 @@ public class CatMenu.MenuWindow : Gtk.ApplicationWindow {
 		var iconfile = @"/home/$user_name/.face";
 		var avatar = new Granite.Widgets.Avatar.from_file (iconfile, 48);
 		avatar.set_tooltip_text(user_name);
+		//BUTTON_PRESS_MASK
+		//button_press_event
+		avatar.touch_event.connect(() => {
+			print("menu touched\n");
+			return false;
+		});
+        //  load_button.clicked.connect(() => load_images.begin());
 
 		var search = new Gtk.SearchEntry();
 		search.set_has_frame(false);

@@ -2,8 +2,8 @@
 Type=Application
 Version=1.0
 Name=Cat Menu
-Comment=Menu
-Exec=com.github.darkoverlordofdata.catmenu
-Icon=/usr/share/icons/com.github.darkoverlordofdata.catmenu.png
+Comment=Reload Menu
+Exec=com.github.darkoverlordofdata.catmenu --reload --show
+Icon=/usr/local/share/icons/com.github.darkoverlordofdata.catmenu.png
 Terminal=false
 Categories=Utility;

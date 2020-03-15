@@ -9,6 +9,7 @@
             "type": "gdb",
             "request": "launch",
             "target": "${workspaceFolder}/build/meson-out/com.github.darkoverlordofdata.catmenu",
+            "arguments": "--show",
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText"
         }
