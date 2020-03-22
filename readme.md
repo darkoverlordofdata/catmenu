@@ -24,15 +24,18 @@
 
 ### build
 
-    meson build --prefix=/usr
+
+    meson build --prefix=/usr/local
     ninja -C build
     sudo ninja -C build install
 
+### openbox conpatible
+    requires obmenu-generator
+    remove update-obmenu
+
 ### menu presentation server
 
-    openbox conpatible
-    
-    catmenu uses the obmenu data from ~/.config/openbox/menu.xml,so you can still use your favorite open box menu generator.
+    catmenu uses config data created with obmenu-generator at ~/.config/openbox/menu.xml
 
     Usage:
     com.github.darkoverlordofdata.catmenu [OPTION?]
@@ -83,3 +86,4 @@ add to ~/.config/openbox/rc.xml
 ![Screenshot](https://github.com/darkoverlordofdata/catmenu/raw/master/assets/0.png "Screenshot")
 
 
+sudo cp data/com.github.darkoverlordofdata.catmenu.png /usr/local/share/icons/com.github.darkoverlordofdata.catmenu.png
